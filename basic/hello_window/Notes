@@ -1,0 +1,24 @@
+1) Initialize GLFW with glfwInit()
+
+2) glfWindowHint lets you set options to configure. What are these?
+
+3) glfwCreateWindow() function creates a window.
+    Args:
+        Width
+        height
+        Title
+        ?
+        ?
+    Returns:
+        NULL upon failure.
+
+4) glfwMakeContextCurrent()
+    Makes the specified window current on the calling thread.
+    Each thread can only have one current context, 
+    and each context can be made current on only one thread.
+
+5) Use glViewPort() to tell OpenGL the dimensions of rendering window.
+    The first two parameters of glViewport set the location of the lower 
+    left corner of the window. The third and fourth parameter set the width 
+    and height of the rendering window in pixels, which we set equal to GLFW's 
+    window size.
