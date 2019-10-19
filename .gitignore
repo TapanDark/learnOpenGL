@@ -1,2 +1,3 @@
 *.o
 all_builds
+.vscode
