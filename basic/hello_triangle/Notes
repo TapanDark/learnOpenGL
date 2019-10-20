@@ -1,0 +1,81 @@
+OpenGL Pipeline:
+
+Theory:
+Vertex Shader -> Primitive Assembly -> Geometry Shader -> Rasterization Stage -> Displayed image?
+
+Vertex Shader:
+    Takes input single vertices and does some 3d geometry transformations? Not clear at this point.
+
+Primitive Assembly:
+    Takes input all vertices after Vertex Shader did its transformations and assembles it into the
+    specified primitive shape.(Always a triangle in modern openGL?)
+
+Geometry Shader:
+    Takes collections of vertices each forming a primitive(?) and "has ability to generate other shapes
+    by emitting new videces to form new/other primitive" <- what the hell does that mean?
+
+Rasterization Stage:
+    Forms "fragments" after performing "clipping" i.e discarding whatever is outside the screen area.
+    Mainly calculates the final color of each pixel. Something about alpha test and blending stage.
+    All still very cryptic, but lets keep going. :P
+
+
+Getting started:
+OpenGL requires all points to be "normalized device coordinates" i.e in the range of 
+    -1.0 to 1.0 on ALL 3 axes.
+Anything outsize is not visible.
+
+                                        * 0,0.5)
+                                       /|\
+                                      / | \
+                                     /  |  \
+                                    /   |   \
+                      _____________/____|____\___________
+                                  /     |     \
+                                 /      |      \
+                                *_______|_______*
+                          (-0.5,-0.5)   |  (0.5,-0.5)
+                                        |
+
+We are drawing the above ^
+
+Steps:
+1) Allocate vertex buffer objects (memory to send to the vertex shader)
+    method: glGenBuffers()
+        unsigned int VBO;
+        glGenBuffers(1, &VBO); 
+    Assign to GL_ARRAY_BUFFER: 
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    ^ anything we do to GL_ARRAY_BUFFER now affects our vertex buffer
+
+2) Copy data to our vertex buffer obect:
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glbufferData() copies user defined data to currently bound buffer.
+    3rd param:
+        GL_STATIC_DRAW: the data will most likely not change at all or very rarely.
+        GL_DYNAMIC_DRAW: the data is likely to change a lot.
+        GL_STREAM_DRAW: the data will change every time it is drawn.
+
+3) create vertex shader and compile shader.
+    We need to write a shader in GLSL(openGL shading language) and compile it.(whelp)
+    we need to write at least the vertex shader and fragment shaders to do anything useful.
+    Refer to code for this.
+    We will write this as a string in our code and compile it dynamically at run time.
+
+4) Create fragment shader:
+    The fragment shader is all about calculating the color output of your pixels. 
+    To keep things simple the fragment shader will always output a greenish-ish color. (#76b900)
+    Look at code for this as well.
+
+5) Shader program:
+    We need to link our shaders together to run our shader program.
+    Done with:
+    glCreateProgram()
+    glAttachShader()
+    glLinkProgram()
+
+6) Delete shader objects after we created and linked them to our program. (whoa. Why? Can't this happen automatically?)
+
+7) *Incomplete notes warning*
+    Sorry, I got bored of writing this. Might continue later.

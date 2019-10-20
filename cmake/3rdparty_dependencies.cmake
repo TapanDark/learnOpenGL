@@ -6,3 +6,9 @@ set(LOGL_BUILD_3RDPARTY_SOURCE_DIR ${CMAKE_SOURCE_DIR}/3rdparty/src)
 ###############################################################################
 set(GLFW_VERSION "3_3_0")
 add_subdirectory(${LOGL_BUILD_3RDPARTY_SOURCE_DIR}/glfw/${GLFW_VERSION})
+
+
+###############################################################################
+# GLAD
+###############################################################################
+add_subdirectory(${LOGL_BUILD_3RDPARTY_SOURCE_DIR}/glad)

@@ -9,3 +9,4 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(3rdparty_dependencies)
 
 add_subdirectory(basic/hello_window)
+add_subdirectory(basic/hello_triangle)

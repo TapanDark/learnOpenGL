@@ -22,7 +22,7 @@ PLATFORM=x86_64
 # I mean, why would you ever want to release this?
 CONFIG=debug
 
-# Now generate a build output directory for each build configuration for the specified
+# Now generate a build output directory for each build configuration specified
 echo "Using PLATFORM=<${PLATFORM}>"
 
 #Branch? Will we have more branches? Answer: Probably not.
