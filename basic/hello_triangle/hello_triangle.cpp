@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <unistd.h>
 
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
@@ -12,6 +13,26 @@ void processInput(GLFWwindow *window);
 
 const unsigned int WIDTH = 800;
 const unsigned int HEIGHT = 600;
+
+enum displayMode
+{
+    SOLID = 0,
+    WIREFRAME,
+    NUM_MODES
+};
+
+enum displayShape
+{
+    TRIANGLE = 0,
+    RECTANGLE,
+    DOUBLE_TRIANGLE,
+    TRIPLE_TRIANGLE,
+    COLORED_TRIANGLES,
+    NUM_SHAPES
+};
+
+displayMode seletectedMode = SOLID;
+displayShape selectedShape = TRIANGLE;
 
 const char *vertexShaderSource =
     "#version 330 core\n"
@@ -158,7 +179,7 @@ int main(void)
     glDeleteShader(fragmentShader);
 
     //Vertex attribute setup
-              
+
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
 
@@ -173,10 +194,24 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         //Draw our triangle
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
+        switch(selectedShape)
+        {
+            case TRIANGLE:
+                glUseProgram(shaderProgram);
+                glBindVertexArray(VAO);
+                glDrawArrays(GL_TRIANGLES, 0, 3);
+                break;
+            case RECTANGLE:
+                break;
+            case DOUBLE_TRIANGLE:
+                break;
+            case TRIPLE_TRIANGLE:
+                break;
+            case COLORED_TRIANGLES:
+                break;
+            default:
+                break;
+        }
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -198,10 +233,19 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 
 void processInput(GLFWwindow *window)
 {
+    static bool spaceHeld = false;
     // set close intent if ESCAPE is pressed, nice.
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         std::cout << "ESCAPE KEY PRESSED!" << std::endl;
         glfwSetWindowShouldClose(window, true);
     }
+    else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !spaceHeld)
+    {
+        spaceHeld = true;
+        std::cout << "SPACE KEY PRESSED!" << std::endl;
+        selectedShape = static_cast<displayShape>((selectedShape + 1) % NUM_SHAPES);
+    }
+    else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE && spaceHeld)
+        spaceHeld=false;
 }
