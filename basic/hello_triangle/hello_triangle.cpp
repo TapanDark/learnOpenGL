@@ -92,21 +92,33 @@ int main(void)
     }
 
     //Define the triangle that we want to draw:
-    //                     * 0,0.5)
-    //                    /|\
-    //                   / | \
-    //                  /  |  \
-    //                 /   |   \
-    //   _____________/____|____\___________
-    //               /     |     \
-    //              /      |      \
+    //             *-------*-(0,0.5)
+    //             |      /|\      |
+    //             |     / | \     |
+    //             |    /  |  \    |
+    //             |   /   |   \   |
+    //   __________|__/____|____\__|________
+    //             | /     |     \ | 
+    //             |/      |      \|
     //             *_______|_______*
     //       (-0.5,-0.5)   |  (0.5,-0.5)
     //                     |
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.05,
-        0.0f, 0.5f, 0.0f};
+        -0.5f, -0.5f, 0.0f, //triangle left
+        0.5f, -0.5f, 0.0f,  //triangle right
+        0.0f, 0.5f, 0.0f,   //triangle top
+        -0.5f, 0.5f, 0.0f,  //rectangle top left
+        0.5f, 0.5f, 0.0f    //rectangle top right
+    };
+
+    unsigned int triangle_indices[] = {
+        0, 1, 2 // Single triangle
+    };
+
+    unsigned int rectangle_indices[] = {
+        0, 1, 4, //right bottom triangle
+        4, 3, 0  // top left triangle
+    };
 
     //Create a vertex buffer to store our vertices
     unsigned int VBO;
@@ -194,23 +206,23 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         //Draw our triangle
-        switch(selectedShape)
+        switch (selectedShape)
         {
-            case TRIANGLE:
-                glUseProgram(shaderProgram);
-                glBindVertexArray(VAO);
-                glDrawArrays(GL_TRIANGLES, 0, 3);
-                break;
-            case RECTANGLE:
-                break;
-            case DOUBLE_TRIANGLE:
-                break;
-            case TRIPLE_TRIANGLE:
-                break;
-            case COLORED_TRIANGLES:
-                break;
-            default:
-                break;
+        case TRIANGLE:
+            glUseProgram(shaderProgram);
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+            break;
+        case RECTANGLE:
+            break;
+        case DOUBLE_TRIANGLE:
+            break;
+        case TRIPLE_TRIANGLE:
+            break;
+        case COLORED_TRIANGLES:
+            break;
+        default:
+            break;
         }
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -247,5 +259,5 @@ void processInput(GLFWwindow *window)
         selectedShape = static_cast<displayShape>((selectedShape + 1) % NUM_SHAPES);
     }
     else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE && spaceHeld)
-        spaceHeld=false;
+        spaceHeld = false;
 }

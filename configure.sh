@@ -48,6 +48,6 @@ fi
 echo "Generating build output for configuration ${config}..."
 
 #Finally build our tree. Whelp.
-${CMAKE_EXE} ${BRANCH_PATH} -B${CONFIG_DIR} -DCMAKE_BUILD_TYPE=$config ${@:1}
+${CMAKE_EXE} ${BRANCH_PATH} -B${CONFIG_DIR} -DCMAKE_BUILD_TYPE=$CONFIG ${@:1}
 
 echo "Finished!"

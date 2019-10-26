@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 
-project(opengl_practive C CXX)
+project(opengl_practice C CXX)
 
 # set path where we add our custom cmake modules.
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
