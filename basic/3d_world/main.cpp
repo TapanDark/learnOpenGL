@@ -11,21 +11,12 @@
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
 
-// //Callback methods for window resize
-// void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-// //Method to process input, if any.
-// void processInput(GLFWwindow *window);
-
 const unsigned int WIDTH = 800;
 const unsigned int HEIGHT = 600;
 
-// void init_window(GLFWwindow **window);
-
-int main(void)
+int main(int argc, char *argv[])
 {
     MyWindow windowObj(WIDTH, HEIGHT);
-    // GLFWwindow *window;
-    // init_window(&window);
 
     float vertices[] = {
         -0.5f, -0.5f,     //triangle left

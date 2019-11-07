@@ -1,6 +1,8 @@
+#ifndef LOGL_WINDOW_UTILS
+#define LOGL_WINDOW_UTILS
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 
 class MyWindow
 {
@@ -14,7 +16,7 @@ private:
         // match our GL viewport size to window dimensions.
         glViewport(0, 0, width, height);
     }
-    
+
 public:
     MyWindow(int width, int height);
     ~MyWindow();
@@ -23,3 +25,5 @@ public:
     void setClose();
     void draw();
 };
+
+#endif //header guard

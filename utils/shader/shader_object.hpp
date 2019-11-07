@@ -1,3 +1,6 @@
+#ifndef LOGL_SHADER_UTILS
+#define LOGL_SHADER_UTILS
+
 #include <glad/glad.h>
 
 #define GL_GLEXT_PROTOTYPES
@@ -20,3 +23,5 @@ public:
     unsigned getGLShaderObject();
     bool isGood();
 };
+
+#endif

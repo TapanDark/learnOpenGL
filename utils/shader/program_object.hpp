@@ -1,3 +1,6 @@
+#ifndef LOGL_PROGRAM_UTILS
+#define LOGL_PROGRAM_UTILS
+
 #include <glad/glad.h>
 
 #define GL_GLEXT_PROTOTYPES
@@ -20,3 +23,5 @@ public:
     void useProgram();
     void cleanupShaders();
 };
+
+#endif
