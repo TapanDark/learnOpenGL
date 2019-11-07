@@ -16,8 +16,7 @@ ENDMACRO()
 # Popluate all the directories inside our utils folder that have a CMakeLists.txt
 SUBDIRLIST(SUBDIRS ${CMAKE_SOURCE_DIR}/utils)
 # Run Cmake for each utility
-message(STATUS "Inlcuding utilities:")
 foreach(subdirectory IN LISTS SUBDIRS)
     message("${subdirectory}")
+    add_subdirectory(${subdirectory})
 endforeach()
-add_subdirectory(${SUBDIRS})
