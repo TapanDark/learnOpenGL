@@ -12,3 +12,9 @@ add_subdirectory(${LOGL_BUILD_3RDPARTY_SOURCE_DIR}/glfw/${GLFW_VERSION})
 # GLAD
 ###############################################################################
 add_subdirectory(${LOGL_BUILD_3RDPARTY_SOURCE_DIR}/glad)
+
+
+###############################################################################
+# GLM
+###############################################################################
+add_subdirectory(${LOGL_BUILD_3RDPARTY_SOURCE_DIR}/glm)

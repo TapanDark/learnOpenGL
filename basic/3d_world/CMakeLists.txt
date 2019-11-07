@@ -1,0 +1,5 @@
+# set(CMAKE_CXX_STANDARD 11)
+configure_file(shaders/vertex.glsl shaders/vertex.glsl COPYONLY)
+configure_file(shaders/fragment.glsl shaders/fragment.glsl COPYONLY)
+add_executable(3d_demo main.cpp)
+target_link_libraries(3d_demo shader_utils glfw glad glm)
