@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string.h>
 #include <glm/glm.hpp>
-#include <shader/shader_util.hpp>
+#include <shader/program_object.hpp>
 
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
@@ -15,30 +15,8 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 //Method to process input, if any.
 void processInput(GLFWwindow *window);
 
-std::string readShaderCode(const char *fileName);
-
 const unsigned int WIDTH = 800;
 const unsigned int HEIGHT = 600;
-
-enum displayMode
-{
-    SOLID = 0,
-    WIREFRAME,
-    NUM_MODES
-};
-
-enum displayShape
-{
-    TRIANGLE = 0,
-    RECTANGLE,
-    DOUBLE_TRIANGLE,
-    TRIPLE_TRIANGLE,
-    COLORED_TRIANGLES,
-    NUM_SHAPES
-};
-
-displayMode seletectedMode = SOLID;
-displayShape selectedShape = TRIANGLE;
 
 void init_window(GLFWwindow **window);
 
@@ -46,14 +24,6 @@ int main(void)
 {
     GLFWwindow *window;
     init_window(&window);
-
-    //declare variables for storing shader compile process info
-    const GLchar *vertexShaderCode[1];
-    const GLchar *fragmentShaderCode[1];
-    std::string shaderCodeString;
-
-    int success;
-    char infoLog[512];
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -69,15 +39,6 @@ int main(void)
         0.0f, 0.5f, 0.0f,   //triangle top
         -0.5f, 0.5f, 0.0f,  //rectangle top left
         0.5f, 0.5f, 0.0f    //rectangle top right
-    };
-
-    unsigned int triangle_indices[] = {
-        0, 1, 2 // Single triangle
-    };
-
-    unsigned int rectangle_indices[] = {
-        0, 1, 4, //right bottom triangle
-        4, 3, 0  // top left triangle
     };
 
     //Create a vertex buffer to store our vertices
@@ -97,41 +58,15 @@ int main(void)
 
     //create and compile our shaders
     ShaderObject *vertexShader, *fragmentShader;
-
-    vertexShader = new ShaderObject(GL_VERTEX_SHADER, "shaders/vertex.glsl");
-    if (!vertexShader->isGood())
+    ShaderProgramObject myShaderProgram;
+    if (!myShaderProgram.addShader(GL_VERTEX_SHADER, "shaders/vertex.glsl"))
         goto cleanup;
-
-    fragmentShader = new ShaderObject(GL_FRAGMENT_SHADER, "shaders/fragment.glsl");
-    if (!fragmentShader->isGood())
+    if (!myShaderProgram.addShader(GL_FRAGMENT_SHADER, "shaders/fragment.glsl"))
         goto cleanup;
-
-    unsigned int shaderProgram;
-    //Create our shader program
-    shaderProgram = glCreateProgram();
-
-    //attach our shaders and link
-    glAttachShader(shaderProgram, vertexShader->getGLShaderObject());
-    glAttachShader(shaderProgram, fragmentShader->getGLShaderObject());
-    glLinkProgram(shaderProgram);
-    //Check for errors:
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        glad_glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::PROGRAM::LINK_FAILED\n"
-                  << infoLog << std::endl;
+    if (!myShaderProgram.link())
         goto cleanup;
-    }
-
-    //Use our program
-    glUseProgram(shaderProgram);
-
-    //delete our shaders.
-    // glDeleteShader(vertexShader);
-    // glDeleteShader(fragmentShader);
-    delete vertexShader;
-    delete fragmentShader;
+    myShaderProgram.cleanupShaders();
+    myShaderProgram.useProgram();
 
     //Vertex attribute setup
 
@@ -149,24 +84,10 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         //Draw our triangle
-        switch (selectedShape)
-        {
-        case TRIANGLE:
-            glUseProgram(shaderProgram);
-            glBindVertexArray(VAO);
-            glDrawArrays(GL_TRIANGLES, 0, 3);
-            break;
-        case RECTANGLE:
-            break;
-        case DOUBLE_TRIANGLE:
-            break;
-        case TRIPLE_TRIANGLE:
-            break;
-        case COLORED_TRIANGLES:
-            break;
-        default:
-            break;
-        }
+            myShaderProgram.useProgram();
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -195,14 +116,6 @@ void processInput(GLFWwindow *window)
         std::cout << "ESCAPE KEY PRESSED!" << std::endl;
         glfwSetWindowShouldClose(window, true);
     }
-    else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !spaceHeld)
-    {
-        spaceHeld = true;
-        std::cout << "SPACE KEY PRESSED!" << std::endl;
-        selectedShape = static_cast<displayShape>((selectedShape + 1) % NUM_SHAPES);
-    }
-    else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE && spaceHeld)
-        spaceHeld = false;
 }
 
 void init_window(GLFWwindow **window)
