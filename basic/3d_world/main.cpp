@@ -16,7 +16,7 @@ const unsigned int HEIGHT = 600;
 
 int main(int argc, char *argv[])
 {
-    MyWindow windowObj(WIDTH, HEIGHT);
+    MyWindow windowObj(WIDTH, HEIGHT, "3d Demo");
 
     float vertices[] = {
         -0.5f, -0.5f,     //triangle left

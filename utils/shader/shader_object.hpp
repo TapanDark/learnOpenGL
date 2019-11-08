@@ -22,6 +22,7 @@ public:
     ~ShaderObject();
     unsigned getGLShaderObject();
     bool isGood();
+    int getUniformLocation(const char* name);
 };
 
 #endif

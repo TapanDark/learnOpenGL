@@ -10,6 +10,7 @@ private:
     GLFWwindow *window;
     int width;
     int height;
+    const char* title;
     void init_window();
     static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
     {
@@ -18,7 +19,7 @@ private:
     }
 
 public:
-    MyWindow(int width, int height);
+    MyWindow(int width, int height, const char* title);
     ~MyWindow();
     bool isKeyPressed(int key);
     bool isOpen();

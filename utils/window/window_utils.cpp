@@ -1,7 +1,7 @@
 #include "window_utils.hpp"
 #include <iostream>
 
-MyWindow::MyWindow(int width, int height) : width(width), height(height)
+MyWindow::MyWindow(int width, int height, const char* title) : width(width), height(height), title(title)
 {
     init_window();
     // glad: load all OpenGL function pointers
@@ -27,7 +27,7 @@ void MyWindow::init_window()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(width, height, title, NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create window!" << std::endl;

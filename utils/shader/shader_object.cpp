@@ -53,6 +53,11 @@ unsigned ShaderObject::getGLShaderObject()
     return shaderObject;
 }
 
+int ShaderObject::getUniformLocation(const char *name)
+{
+    return glGetUniformLocation(shaderObject, name);
+}
+
 bool ShaderObject::isGood()
 {
     int success;
