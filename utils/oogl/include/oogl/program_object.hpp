@@ -1,5 +1,5 @@
-#ifndef LOGL_PROGRAM_UTILS
-#define LOGL_PROGRAM_UTILS
+#ifndef OOGL_PROGRAM_UTILS
+#define OOGL_PROGRAM_UTILS
 
 #include <glad/glad.h>
 

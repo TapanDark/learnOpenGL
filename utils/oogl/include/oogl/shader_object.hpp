@@ -1,5 +1,5 @@
-#ifndef LOGL_SHADER_UTILS
-#define LOGL_SHADER_UTILS
+#ifndef OOGL_SHADER_UTILS
+#define OOGL_SHADER_UTILS
 
 #include <glad/glad.h>
 

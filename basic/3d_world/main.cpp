@@ -6,6 +6,8 @@
 #include <string.h>
 #include <glm/glm.hpp>
 #include <oogl/program_object.hpp>
+#include <oogl/primitives/shape.hpp>
+#include <shape_generator/shape_generator.hpp>
 #include <window/window_utils.hpp>
 
 #define GL_GLEXT_PROTOTYPES
@@ -23,7 +25,7 @@ static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 int main(int argc, char *argv[])
 {
     MyWindow windowObj(WIDTH, HEIGHT, "3d Demo");
-windowObj.setFramebufferResizeCallback(framebuffer_size_callback);
+    windowObj.setFramebufferResizeCallback(framebuffer_size_callback);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -32,15 +34,8 @@ windowObj.setFramebufferResizeCallback(framebuffer_size_callback);
         std::cout << "Failed to initialize GLAD" << std::endl;
         throw std::exception();
     }
-
-    float vertices[] = {
-        -0.5f, -0.5f,     //triangle left
-        1.0f, 0.0f, 0.0f, //red
-        0.5f, -0.5f,      //triangle right
-        0.0f, 1.0f, 0.0f, //green
-        0.0f, 0.5f,       //triangle top
-        0.0f, 0.0f, 1.0f  //blue
-    };
+    Shape triangle;
+    ShapeGenerator::makeTriangle(&triangle);
 
     //Create a vertex buffer to store our vertices
     unsigned int VBO;
@@ -55,14 +50,14 @@ windowObj.setFramebufferResizeCallback(framebuffer_size_callback);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     //copy our data to buffer
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, triangle.vertexBufferSize(), triangle.getVertices(), GL_STATIC_DRAW);
 
     //Vertex attribute setup
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
 
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(sizeof(float) * 2));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(sizeof(float) * 3));
 
     //create and compile our shaders
     ShaderObject *vertexShader, *fragmentShader;
