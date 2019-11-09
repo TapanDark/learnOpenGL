@@ -1,7 +1,6 @@
 #ifndef LOGL_WINDOW_UTILS
 #define LOGL_WINDOW_UTILS
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 class MyWindow
@@ -12,11 +11,6 @@ private:
     int height;
     const char* title;
     void init_window();
-    static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
-    {
-        // match our GL viewport size to window dimensions.
-        glViewport(0, 0, width, height);
-    }
 
 public:
     MyWindow(int width, int height, const char* title);
@@ -25,6 +19,7 @@ public:
     bool isOpen();
     void setClose();
     void draw();
+    void setFramebufferResizeCallback(void (*callback)(GLFWwindow *, int, int));
 };
 
 #endif //header guard

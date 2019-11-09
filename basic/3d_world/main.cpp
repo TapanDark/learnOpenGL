@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string.h>
 #include <glm/glm.hpp>
-#include <shader/program_object.hpp>
+#include <oogl/program_object.hpp>
 #include <window/window_utils.hpp>
 
 #define GL_GLEXT_PROTOTYPES
@@ -14,9 +14,24 @@
 const unsigned int WIDTH = 800;
 const unsigned int HEIGHT = 600;
 
+static void framebuffer_size_callback(GLFWwindow *window, int width, int height)
+{
+    // match our GL viewport size to window dimensions.
+    glViewport(0, 0, width, height);
+}
+
 int main(int argc, char *argv[])
 {
     MyWindow windowObj(WIDTH, HEIGHT, "3d Demo");
+windowObj.setFramebufferResizeCallback(framebuffer_size_callback);
+
+    // glad: load all OpenGL function pointers
+    // ---------------------------------------
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        throw std::exception();
+    }
 
     float vertices[] = {
         -0.5f, -0.5f,     //triangle left

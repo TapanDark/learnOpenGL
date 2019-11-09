@@ -1,16 +1,9 @@
 #include "window_utils.hpp"
 #include <iostream>
 
-MyWindow::MyWindow(int width, int height, const char* title) : width(width), height(height), title(title)
+MyWindow::MyWindow(int width, int height, const char *title) : width(width), height(height), title(title)
 {
     init_window();
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        throw std::exception();
-    }
 }
 
 void MyWindow::init_window()
@@ -36,9 +29,15 @@ void MyWindow::init_window()
     }
 
     /* Make the window's context current */
+    // TODO: Does this api need to be exposed?
     glfwMakeContextCurrent(window);
-    // set callback to resize our GL framebuffer upon window resize
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+}
+
+// set callback to resize our GL framebuffer upon window resize
+
+void MyWindow::setFramebufferResizeCallback(void (*callback)(GLFWwindow *, int, int))
+{
+    glfwSetFramebufferSizeCallback(window, callback);
 }
 
 bool MyWindow::isOpen()

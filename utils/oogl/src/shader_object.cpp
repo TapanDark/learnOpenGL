@@ -1,4 +1,4 @@
-#include "shader_object.hpp"
+#include "oogl/shader_object.hpp"
 #include <string.h>
 #include <fstream>
 

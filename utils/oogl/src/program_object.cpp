@@ -1,4 +1,4 @@
-#include "program_object.hpp"
+#include "oogl/program_object.hpp"
 
 ShaderProgramObject::ShaderProgramObject()
 {
