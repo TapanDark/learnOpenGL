@@ -3,13 +3,10 @@
 
 #define NUM_ARRAY_ELEMENTS(a) sizeof(a) / sizeof(*a)
 
-void ShapeGenerator::makeTriangle(Shape *shapeObj)
+Shape ShapeGenerator::makeTriangle()
 {
-    if (shapeObj == NULL)
-    {
-        shapeObj = new Shape();
-    }
-    shapeObj->clear();
+    Shape shapeObj;
+    // shapeObj->clear();
     Vertex triVertices[] = {
         glm::vec3(-0.5f, -0.5f, +0.0f), //triangle left
         glm::vec3(+1.0f, +0.0f, +0.0f), //red
@@ -24,6 +21,7 @@ void ShapeGenerator::makeTriangle(Shape *shapeObj)
     GLushort triIndices[] = {0, 1, 2};
 
 
-    shapeObj->addVertices(triVertices, NUM_ARRAY_ELEMENTS(triVertices));
-    shapeObj->addIndices(triIndices, NUM_ARRAY_ELEMENTS(triIndices));
+    shapeObj.addVertices(triVertices, NUM_ARRAY_ELEMENTS(triVertices));
+    shapeObj.addIndices(triIndices, NUM_ARRAY_ELEMENTS(triIndices));
+    return shapeObj;
 }

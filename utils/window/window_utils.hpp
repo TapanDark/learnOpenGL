@@ -18,7 +18,7 @@ public:
     bool isKeyPressed(int key);
     bool isOpen();
     void setClose();
-    void draw();
+    void refresh();
     void setFramebufferResizeCallback(void (*callback)(GLFWwindow *, int, int));
 };
 

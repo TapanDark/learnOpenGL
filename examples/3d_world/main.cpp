@@ -1,17 +1,9 @@
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <iostream>
 #include <unistd.h>
-#include <fstream>
-#include <string.h>
-#include <glm/glm.hpp>
-#include <oogl/program_object.hpp>
-#include <oogl/primitives/shape.hpp>
+#include <oogl/oogl.hpp>
 #include <shape_generator/shape_generator.hpp>
 #include <window/window_utils.hpp>
-
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
 
 const unsigned int WIDTH = 800;
 const unsigned int HEIGHT = 600;
@@ -34,8 +26,7 @@ int main(int argc, char *argv[])
         std::cout << "Failed to initialize GLAD" << std::endl;
         throw std::exception();
     }
-    Shape triangle;
-    ShapeGenerator::makeTriangle(&triangle);
+    Shape triangle = ShapeGenerator::makeTriangle();
 
     //Create a vertex buffer to store our vertices
     unsigned int VBO;
@@ -84,7 +75,7 @@ int main(int argc, char *argv[])
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         //Actuall swap buffers so our new image is visible
-        windowObj.draw();
+        windowObj.refresh();
         //perform actions on input
         if (windowObj.isKeyPressed(GLFW_KEY_ESCAPE))
             windowObj.setClose();

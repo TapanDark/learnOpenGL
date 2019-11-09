@@ -8,7 +8,7 @@
 class ShapeGenerator
 {
 public:
-    static void makeTriangle(Shape *shapeObj);
+    static Shape makeTriangle();
 };
 
 #endif

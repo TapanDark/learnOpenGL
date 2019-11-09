@@ -1,6 +1,7 @@
 #ifndef OOGL_SHAPE_PRIMITIVE
 #define OOGL_SHAPE_PRIMITIVE
 
+#include <iostream>
 #include <glad/glad.h>
 #include "vertex.hpp"
 #include <vector>
@@ -9,12 +10,11 @@ struct Shape
 {
 private:
     std::vector<Vertex> vertices;
-    // GLuint numVertices;
     std::vector<GLushort> indices;
-    // GLuint numIndices;
 
 public:
-    // Shape() : vertices(NULL), indices(NULL) {}
+    Shape(){};
+    Shape(const Shape &) { std::cout << "A copy was made.\n"; }
     GLsizeiptr vertexBufferSize() const
     {
         return vertices.size() * sizeof(Vertex);

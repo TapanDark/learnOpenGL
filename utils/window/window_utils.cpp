@@ -13,7 +13,7 @@ void MyWindow::init_window()
     if (!glfwInit())
     {
         std::cout << "GLFW INIT Failed" << std::endl;
-        exit(-1);
+        throw std::exception();
     }
     /* Create a windowed mode window and its OpenGL context */
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -25,7 +25,7 @@ void MyWindow::init_window()
     {
         std::cout << "Failed to create window!" << std::endl;
         glfwTerminate();
-        exit(-1);
+        throw std::exception();
     }
 
     /* Make the window's context current */
@@ -45,7 +45,7 @@ bool MyWindow::isOpen()
     return !glfwWindowShouldClose(window);
 }
 
-void MyWindow::draw()
+void MyWindow::refresh()
 {
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
