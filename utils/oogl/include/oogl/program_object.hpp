@@ -42,8 +42,8 @@ public:
     void SetUniform(const Uniform &uniform, const vec2 *values, uint count);
     void SetUniform(const Uniform &uniform, const vec3 *values, uint count);
     void SetUniform(const Uniform &uniform, const vec4 *values, uint count);
-    // void SetUniform(const Uniform &uniform, const mat3 &value);
-    // void SetUniform(const Uniform &uniform, const mat4 &value);
+    void SetUniform(const Uniform &uniform, const mat3 *values, uint count, bool transpose = false);
+    void SetUniform(const Uniform &uniform, const mat4 *values, uint count, bool transpose = false);
 };
 
 #endif

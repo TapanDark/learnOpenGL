@@ -9,6 +9,7 @@ class ShapeGenerator
 {
 public:
     static Shape makeTriangle();
+    static Shape makeCube();
 };
 
 #endif

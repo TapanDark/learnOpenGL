@@ -14,7 +14,11 @@ private:
 
 public:
     Shape(){};
-    Shape(const Shape &) { std::cout << "A copy was made.\n"; }
+    int getNumVertices()
+    {
+        return indices.size();
+    }
+
     GLsizeiptr vertexBufferSize() const
     {
         return vertices.size() * sizeof(Vertex);

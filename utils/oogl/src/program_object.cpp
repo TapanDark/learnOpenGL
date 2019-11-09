@@ -45,7 +45,11 @@ void ShaderProgramObject::cleanupShaders()
 
 Uniform ShaderProgramObject::GetUniform(const std::string &name)
 {
-    return glGetUniformLocation(programObject, name.c_str());
+    Uniform location = glGetUniformLocation(programObject, name.c_str());
+    if (location < 0)
+        std::cout << "WARNING: Unable to get uniform location for " << name << std::endl;
+
+    return location;
 }
 
 void ShaderProgramObject::SetUniform(const Uniform &uniform, int value)
@@ -96,13 +100,17 @@ void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec4 *values,
     useProgram();
     glUniform4fv(uniform, count, (GLfloat *)values);
 }
-// void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat3 &value)
-// {
-//     useProgram();
-//     glUniform3fv(uniform, count, (GLfloat *)values);
-// }
-// void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat4 &value)
-// {
-//     useProgram();
-//     glUniform1i(uniform, value);
-// }
+
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat3 *values, uint count, bool transpose)
+{
+    useProgram();
+    GLboolean gl_normalize = transpose ? GL_TRUE : GL_FALSE;
+    glUniformMatrix3fv(uniform, count, gl_normalize, (GLfloat *)values);
+}
+
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat4 *values, uint count, bool transpose)
+{
+    useProgram();
+    GLboolean gl_normalize = transpose ? GL_TRUE : GL_FALSE;
+    glUniformMatrix4fv(uniform, count, gl_normalize, (GLfloat *)values);
+}
