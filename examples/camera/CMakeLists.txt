@@ -1,0 +1,8 @@
+# set(CMAKE_CXX_STANDARD 11)
+file(GLOB SHADER_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/shaders/*glsl")
+foreach(filename ${SHADER_LIST})
+    message("copying shader ${filename}")
+    configure_file(${filename} ${filename} COPYONLY)
+endforeach(filename)
+add_executable(camera_demo main.cpp)
+target_link_libraries(camera_demo camera oogl shape_generator window_utils glad glm)

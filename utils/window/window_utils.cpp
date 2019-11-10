@@ -40,6 +40,21 @@ void MyWindow::setFramebufferResizeCallback(void (*callback)(GLFWwindow *, int, 
     glfwSetFramebufferSizeCallback(window, callback);
 }
 
+void MyWindow::setCursorPosCallback(void (*callback)(GLFWwindow *, double, double))
+{
+    std::cout<<"Setting cursor position callback\n";
+    glfwSetCursorPosCallback(window, callback);
+}
+
+void MyWindow::setCursorDisabled()
+{
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+void MyWindow::setCursorEnabled()
+{
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
 bool MyWindow::isOpen()
 {
     return !glfwWindowShouldClose(window);

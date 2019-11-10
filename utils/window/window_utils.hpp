@@ -9,7 +9,7 @@ private:
     GLFWwindow *window;
     int width;
     int height;
-    const char* title;
+    const char *title;
     void init_window();
 
 public:
@@ -19,6 +19,9 @@ public:
     bool isOpen();
     void setClose();
     void refresh();
+    void setCursorPosCallback(void (*callback)(GLFWwindow *, double, double));
+    void setCursorDisabled();
+    void setCursorEnabled();
     void setFramebufferResizeCallback(void (*callback)(GLFWwindow *, int, int));
 };
 

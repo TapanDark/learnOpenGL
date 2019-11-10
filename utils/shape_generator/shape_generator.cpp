@@ -1,5 +1,4 @@
 #include "shape_generator.hpp"
-#include <iostream>
 
 #define NUM_ARRAY_ELEMENTS(a) sizeof(a) / sizeof(*a)
 
