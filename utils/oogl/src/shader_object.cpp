@@ -40,7 +40,7 @@ std::string ShaderObject::readShaderCode(const char *filename)
     if (!shaderFile.good())
     {
         std::cout << "Shader file failed to open : " << filename;
-        exit(1);
+        throw std::exception();
     }
     std::string out = std::string(
         std::istreambuf_iterator<char>(shaderFile),

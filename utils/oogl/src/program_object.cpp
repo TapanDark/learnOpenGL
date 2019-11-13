@@ -78,37 +78,37 @@ void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec4 &value)
     useProgram();
     glUniform4f(uniform, value.x, value.y, value.z, value.w);
 }
-void ShaderProgramObject::SetUniform(const Uniform &uniform, const float *values, uint count)
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const float *values, unsigned int count)
 {
     useProgram();
     glUniform1fv(uniform, count, values);
 }
-void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec2 *values, uint count)
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec2 *values, unsigned int count)
 {
     useProgram();
     glUniform2fv(uniform, count, (GLfloat *)values);
 }
 
-void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec3 *values, uint count)
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec3 *values, unsigned int count)
 {
     useProgram();
     glUniform3fv(uniform, count, (GLfloat *)values);
 }
 
-void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec4 *values, uint count)
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const vec4 *values, unsigned int count)
 {
     useProgram();
     glUniform4fv(uniform, count, (GLfloat *)values);
 }
 
-void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat3 *values, uint count, bool transpose)
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat3 *values, unsigned int count, bool transpose)
 {
     useProgram();
     GLboolean gl_normalize = transpose ? GL_TRUE : GL_FALSE;
     glUniformMatrix3fv(uniform, count, gl_normalize, (GLfloat *)values);
 }
 
-void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat4 *values, uint count, bool transpose)
+void ShaderProgramObject::SetUniform(const Uniform &uniform, const mat4 *values, unsigned int count, bool transpose)
 {
     useProgram();
     GLboolean gl_normalize = transpose ? GL_TRUE : GL_FALSE;

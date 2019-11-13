@@ -9,4 +9,4 @@ void main()
 {
     gl_Position = fullTransformMatrix * vec4(position, 1.0);
     outColor = vColor;
-};
+}

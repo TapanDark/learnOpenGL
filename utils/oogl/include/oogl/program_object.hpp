@@ -38,12 +38,12 @@ public:
     void SetUniform(const Uniform &uniform, const vec2 &value);
     void SetUniform(const Uniform &uniform, const vec3 &value);
     void SetUniform(const Uniform &uniform, const vec4 &value);
-    void SetUniform(const Uniform &uniform, const float *values, uint count);
-    void SetUniform(const Uniform &uniform, const vec2 *values, uint count);
-    void SetUniform(const Uniform &uniform, const vec3 *values, uint count);
-    void SetUniform(const Uniform &uniform, const vec4 *values, uint count);
-    void SetUniform(const Uniform &uniform, const mat3 *values, uint count, bool transpose = false);
-    void SetUniform(const Uniform &uniform, const mat4 *values, uint count, bool transpose = false);
+    void SetUniform(const Uniform &uniform, const float *values, unsigned int count);
+    void SetUniform(const Uniform &uniform, const vec2 *values, unsigned int count);
+    void SetUniform(const Uniform &uniform, const vec3 *values, unsigned int count);
+    void SetUniform(const Uniform &uniform, const vec4 *values, unsigned int count);
+    void SetUniform(const Uniform &uniform, const mat3 *values, unsigned int count, bool transpose = false);
+    void SetUniform(const Uniform &uniform, const mat4 *values, unsigned int count, bool transpose = false);
 };
 
 #endif
