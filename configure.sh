@@ -1,5 +1,13 @@
 #!/bin/bash
 
+extract_cmake() {
+    mkdir -p cmake_bin
+    rm -rf cmake_bin/*
+    tar -xvzf 3rdparty/cmake-3*.tar.gz -C cmake_bin/
+
+    CMAKE_EXE="${SCRIPTDIR}/cmake_bin/cmake*/bin/cmake"
+}
+
 # This script is meant to prepare build directories for each of the sub-programs
 # that I am developing to learn openGL. I have no idea what I'm doing. Don't count
 # on this to work at all. If stuck, Google is your friend. Happy coding!
@@ -8,11 +16,19 @@
 SCRIPTPATH=`readlink -f $0`
 SCRIPTDIR=`dirname "$SCRIPTPATH"`
 
- # Hope ya got cmake, cuz I sure as hell won't provide it. TODO: Provide cmake with project
+# Don't sweat it if you don't have cmake, we got you covered.
 CMAKE_EXE=`which cmake`
 if [[ -z "$CMAKE_EXE" ]]; then
-    >&2 echo "Cmake is not installed. Aborting"
-    exit 1
+    >&2 echo "Cmake is not installed, extracting."
+    extract_cmake
+else
+    CMAKE_VERSION=`cmake --version 2>&1 | head -n 1 | cut -d' ' -f 3`
+    if [[ $CMAKE_VERSION != "3.2*" ]]; then
+        echo "Installed cmake is not compatible with project, extracting new version."
+        extract_cmake
+    else
+        echo "Using Cmake from ${CMAKE_EXE}"
+    fi
 fi
 # ^ Well That was a bash nightmare. :(
 
